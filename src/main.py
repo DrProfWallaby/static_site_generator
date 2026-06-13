@@ -1,9 +1,7 @@
-from textnode import TextNode, TextType
-from htmlnode import HTMLNode
+from inline_markdown import extract_markdown_images, extract_markdown_links
 
 def main():
-    test = HTMLNode(props={"href": "https://www.google.com"})
-    print(test.props_to_html())
+    pass
 
 if __name__ == "__main__":
     main()
