@@ -9,4 +9,7 @@ class ParentNode(HTMLNode):
             raise ValueError("Error: ParentNode has no tag.")
         if not self.children:
             raise ValueError("Error: ParentNode is not a parent.")
-        
+        html_string = ""
+        for leaf_node in self.children:
+            html_string += leaf_node.to_html()
+        return f"<{self.tag}>{html_string}</{self.tag}>"
