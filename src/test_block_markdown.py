@@ -131,17 +131,69 @@ This is another paragraph with _italic_ text and `code` here
             "<div><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
         )
 
-def test_codeblock(self):
-    md = """
+    def test_codeblock(self):
+        md = """
 ```
 This is text that _should_ remain
 the **same** even with inline stuff
 ```
 """
 
-    node = markdown_to_html_node(md)
-    html = node.to_html()
-    self.assertEqual(
-        html,
-        "<div><pre><code>This is text that _should_ remain\nthe **same** even with inline stuff\n</code></pre></div>",
-    )
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            html,
+            "<div><pre><code>This is text that _should_ remain\nthe **same** even with inline stuff\n</code></pre></div>",
+        )
+
+    def test_unordered_html_list(self):
+        md = """
+- this is a list item
+- so is **this**
+- hey look a third list item
+"""
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            html,
+            "<div><ul><li>this is a list item</li><li>so is <b>this</b></li><li>hey look a third list item</li></ul></div>"
+        )
+    
+
+    def test_ordered_html_list(self):
+        md =  """
+1. this is an ordered list
+2. with **bold** and _italic_ words
+3. and a third one for good measure
+"""
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            html,
+            "<div><ol><li>this is an ordered list</li><li>with <b>bold</b> and <i>italic</i> words</li><li>and a third one for good measure</li></ol></div>"
+        )
+    
+    def test_html_headings(self):
+        header = "#"
+        for i in range(1, 7):
+            md = f"{header} this is an h{i} header"
+            node = markdown_to_html_node(md)
+            html = node.to_html()
+            self.assertEqual(
+                html,
+                f"<div><h{i}>this is an h{i} header</h{i}></div>"
+            )
+            header += "#"
+
+    def test_html_quote(self):
+        md = """
+>this is a quote
+> with different spacing
+> and **bold** words
+"""
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            html,
+            "<div><blockquote>this is a quote with different spacing and <b>bold</b> words</blockquote></div>"
+        )
