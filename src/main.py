@@ -50,7 +50,7 @@ def generate_page(from_path: str, template_path: str, dest_path: str, basepath: 
     if dir_path != "":
         os.makedirs(dir_path, exist_ok=True)
     with open(dest_path, 'w') as f:
-        f.write(page)
+        f.write(page_final)
 
 def generate_pages_recursive(dir_path_content: str, template_path: str, dest_dir_path: str, basepath: str) -> None:
     if not os.path.exists(dest_dir_path):
