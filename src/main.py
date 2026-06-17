@@ -6,8 +6,9 @@ from block_markdown import markdown_to_html_node
 
 def main():
         basepath = "/"
-        if sys.argv[1]:
+        if len(sys.argv) > 1:
             basepath = sys.argv[1]
+        print(f"basepath: {basepath}")
         static = os.path.abspath("./static")
         public = os.path.abspath("./docs")
         template = os.path.abspath("./template.html")
